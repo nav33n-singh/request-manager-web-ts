@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -11,23 +11,22 @@ import {
   CircularProgress,
   MenuItem,
 } from '@mui/material';
-import { useCreateRequestMutation } from '../store/api-slice';
-
-// Mock users list - in production, this should come from an API
-const mockUsers = [
-  { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' },
-  { id: 3, name: 'Bob Johnson', email: 'bob.johnson@example.com' },
-];
+import { useCreateRequestMutation, useGetAssigneesQuery } from '../store/api-slice';
+import { formatUserName } from '../utils/format';
+import { AssigneeResponse, AssigneeUserMeta } from '../types';
 
 const CreateRequestPage: React.FC = () => {
   const navigate = useNavigate();
   const [createRequest, { isLoading, error }] = useCreateRequestMutation();
+  const { data: assigneesData, isLoading: isLoadingAssignees, error: assigneesError } = useGetAssigneesQuery({ page: 1, count: 100 });
   
   const [request, setRequest] = useState('');
   const [assigneeId, setAssigneeId] = useState<number | ''>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  const typedAssigneesData = assigneesData as AssigneeResponse | undefined;
+  const assignees = typedAssigneesData?.data || [];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,14 +104,35 @@ const CreateRequestPage: React.FC = () => {
             value={assigneeId}
             onChange={(e) => setAssigneeId(Number(e.target.value))}
             required
-            disabled={isLoading || success}
+            disabled={isLoading || success || isLoadingAssignees}
             sx={{ mb: 3 }}
+            helperText={isLoadingAssignees ? 'Loading assignees...' : assigneesError ? 'Failed to load assignees' : ''}
+            error={!!assigneesError}
           >
-            {mockUsers.map((user) => (
-              <MenuItem key={user.id} value={user.id}>
-                {user.name} ({user.email})
+            {isLoadingAssignees ? (
+              <MenuItem disabled>
+                <CircularProgress size={20} sx={{ mr: 1 }} />
+                Loading assignees...
               </MenuItem>
-            ))}
+            ) : assignees.length === 0 ? (
+              <MenuItem disabled>No assignees available</MenuItem>
+            ) : (
+              assignees.map((assignee: AssigneeUserMeta) => {
+                const assigneeId = Number(assignee.id);
+                const userMeta = {
+                  id: assigneeId,
+                  firstName: assignee.firstName,
+                  middleName: assignee.middleName,
+                  lastName: assignee.lastName,
+                  email: assignee.email,
+                };
+                return (
+                  <MenuItem key={assignee.id} value={assigneeId}>
+                    {formatUserName(userMeta)} ({assignee.email})
+                  </MenuItem>
+                );
+              })
+            )}
           </TextField>
 
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>

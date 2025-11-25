@@ -82,3 +82,17 @@ export interface ApiResponse<T> {
   data: T | null;
 }
 
+export interface AssigneeUserMeta {
+  id: string | number;
+  firstName: string;
+  middleName: string | null;
+  lastName: string | null;
+  email: string;
+}
+
+export interface AssigneeResponse {
+  success: boolean;
+  message: string;
+  data: AssigneeUserMeta[];
+}
+

@@ -7,7 +7,8 @@ import {
   CloseRequestPayload,
   QueueRequestPayload,
   QueueResponse,
-  ApiResponse
+  ApiResponse,
+  AssigneeResponse
 } from '../types';
 
 const API_BASE_URL = 'http://localhost:4001/api/v1';
@@ -90,6 +91,14 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Request'],
     }),
+    // @ts-ignore - RTK Query builder types are complex
+    getAssignees: builder.query<AssigneeResponse, QueueRequestPayload>({
+      query: (payload: QueueRequestPayload) => ({
+        url: '/request/assignees',
+        method: 'GET',
+        params: payload,
+      }),
+    }),
   }),
 });
 
@@ -101,5 +110,6 @@ export const {
   useGetMyRequestsQuery,
   useGetManagerQueueQuery,
   useGetAssigneeQueueQuery,
+  useGetAssigneesQuery,
 } = apiSlice;
 
