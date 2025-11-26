@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = 'http://localhost:4001/api/v1';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:4001/api/v1';
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
