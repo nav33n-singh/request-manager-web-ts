@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Typography,
@@ -24,7 +23,6 @@ interface RequestQueuePageProps {
 }
 
 const RequestQueuePage: React.FC<RequestQueuePageProps> = ({ queueType }) => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [page, setPageState] = useState(1);
   const [pageSize] = useState(10);

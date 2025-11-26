@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ import {
   Button,
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { RequestDetails, RequestStatus } from '../types';
+import { RequestDetails } from '../types';
 import { formatDate, formatUserName, getStatusColor } from '../utils/format';
 
 interface RequestListProps {

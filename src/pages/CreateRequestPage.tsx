@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -17,7 +17,7 @@ import { AssigneeResponse, AssigneeUserMeta } from '../types';
 
 const CreateRequestPage: React.FC = () => {
   const navigate = useNavigate();
-  const [createRequest, { isLoading, error }] = useCreateRequestMutation();
+  const [createRequest, { isLoading }] = useCreateRequestMutation();
   const { data: assigneesData, isLoading: isLoadingAssignees, error: assigneesError } = useGetAssigneesQuery({ page: 1, count: 100 });
   
   const [request, setRequest] = useState('');

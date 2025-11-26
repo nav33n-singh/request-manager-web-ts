@@ -18,7 +18,7 @@ import { AuthenticatedUser, LoginResponse } from '../types';
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');

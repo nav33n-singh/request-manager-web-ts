@@ -25,7 +25,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { logout } from '../store/auth-slice';
-import { formatUserName } from '../utils/format';
 
 const drawerWidth = 240;
 
