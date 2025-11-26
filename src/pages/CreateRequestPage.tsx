@@ -138,7 +138,7 @@ const CreateRequestPage: React.FC = () => {
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button
               variant="outlined"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/requests/mine')}
               disabled={isLoading || success}
             >
               Cancel

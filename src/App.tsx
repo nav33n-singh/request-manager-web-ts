@@ -79,7 +79,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<Navigate to="/requests/mine" replace />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

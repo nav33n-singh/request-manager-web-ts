@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
     // Decode token to get user info (simplified - in production, decode JWT properly)
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/dashboard');
+      navigate('/requests/mine');
     }
   }, [navigate]);
 
@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
               phoneCode: payload.phoneCode || null,
             };
             dispatch(setCredentials({ token: result.data.token, user }));
-            navigate('/dashboard');
+            navigate('/requests/mine');
           } catch (err) {
             // Fallback if token decode fails
             const user: AuthenticatedUser = {
@@ -66,7 +66,7 @@ const LoginPage: React.FC = () => {
               phoneCode: null,
             };
             dispatch(setCredentials({ token: result.data.token, user }));
-            navigate('/dashboard');
+            navigate('/requests/mine');
           }
         }
       }

@@ -18,7 +18,6 @@ import {
   MenuItem,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import PersonIcon from '@mui/icons-material/Person';
@@ -61,9 +60,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   };
 
   const menuItems = [
-    { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-    { text: 'Create Request', icon: <AddCircleIcon />, path: '/requests/create' },
     { text: 'My Requests', icon: <PersonIcon />, path: '/requests/mine' },
+    { text: 'Create Request', icon: <AddCircleIcon />, path: '/requests/create' },
     { text: 'Manager Queue', icon: <CheckCircleIcon />, path: '/requests/manager' },
     { text: 'Assignee Queue', icon: <AssignmentIcon />, path: '/requests/assignee' },
   ];
